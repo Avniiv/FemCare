@@ -1,7 +1,11 @@
-import AppRoutes from "./routes/AppRoutes.jsx";
+import PrimaryButton from "./components/ui/PrimaryButton.jsx";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <PrimaryButton>Get Started</PrimaryButton>
+    </div>
+  );
 }
 
 export default App;
