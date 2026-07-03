@@ -54,7 +54,13 @@ const loginUser = async (loginData) => {
 };
 
 const getUserProfile = async (userId) => {
-  throw new Error("Not implemented");
+   const user = await User.findById(userId);
+ 
+  if (!user) {
+    throw new Error("User not found");
+  }
+ 
+  return user;
 };
 
 const changePassword = async (userId, passwordData) => {

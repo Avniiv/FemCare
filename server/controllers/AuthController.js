@@ -21,7 +21,7 @@ export const login = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const result = await AuthService.getUserProfile(req.user);
+    const result = await AuthService.getUserProfile(req.user.userId);
     return successResponse(res, 200, "User profile fetched successfully", result);
   } catch (error) {
     return errorResponse(res, 500, error.message);
