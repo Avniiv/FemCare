@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const registerUser = async (userData) => {
@@ -24,7 +25,32 @@ const registerUser = async (userData) => {
 };
 
 const loginUser = async (loginData) => {
-  throw new Error("Not implemented");
+   const { email, password } = loginData;
+ 
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    throw new Error("Invalid email or password");
+  }
+
+   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+
+   return {
+    token,
+    user: {
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profileImage: user.profileImage,
+      isProfileComplete: user.isProfileComplete,
+    },
+  };
 };
 
 const getUserProfile = async (userId) => {
