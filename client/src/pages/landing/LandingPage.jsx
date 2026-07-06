@@ -1,6 +1,19 @@
+import Navbar from "../../components/layout/Navbar";
+import FeaturesSection from "./sections/FeatureSection";
+import HeroSection from "./sections/HeroSection";
+import PrivacySection from "./sections/PrivacySection";
+import Footer from "../../components/layout/Footer";
+
 const LandingPage = () => {
-  return <h1>Landing Page</h1>;
+  return (
+    <>
+      <Navbar />
+      <HeroSection />
+      <FeaturesSection />
+      <PrivacySection />
+      <Footer />
+    </>
+  );
 };
- 
+
 export default LandingPage;
- 
