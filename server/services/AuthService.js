@@ -19,9 +19,9 @@ const registerUser = async (userData) => {
     password: hashedPassword,
   });
 
-  const createdUser = await User.findById(newUser._id);
+  const { password: _, ...userWithoutPassword } = newUser.toObject();
 
-  return createdUser;
+  return userWithoutPassword;
 };
 
 const loginUser = async (loginData) => {
@@ -37,7 +37,7 @@ const loginUser = async (loginData) => {
     throw new Error("Invalid email or password");
   }
 
-   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+   const token = jwt.sign({ id : user._id, email : user.email }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
@@ -49,6 +49,9 @@ const loginUser = async (loginData) => {
       email: user.email,
       profileImage: user.profileImage,
       isProfileComplete: user.isProfileComplete,
+      preferredLanguage: user.preferredLanguage,
+      notificationsEnabled: user.notificationsEnabled,
+      theme: user.theme,
     },
   };
 };

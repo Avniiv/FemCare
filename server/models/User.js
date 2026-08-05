@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      validator: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
+        match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
     },
     password: {
       type: String,
@@ -31,12 +31,34 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+     dateOfBirth: {
+      type: Date,
+      default: null,
+    },
+     preferredLanguage: {
+      type: String,
+      default: "English",
+    },
+    theme: {
+      type: String,
+      enum: ["light", "dark"],
+      default: "light",
+    },
+    notificationsEnabled: {
+      type: Boolean,
+      default: true,
+    },
+    timezone: {
+      type: String,
+      default: "Asia/Kolkata",
+    },
   },
   {
     timestamps: true,
+    versionKey:false
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema, "users");
 
 export default User;

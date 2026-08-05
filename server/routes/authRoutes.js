@@ -11,10 +11,12 @@ import {
 
 const router = express.Router();
 
+//Public Routes
 router.post("/register", registerValidation, validateRequest, register);
 
 router.post("/login", loginValidation, validateRequest, login);
 
+//Protected Routes
 router.get("/profile", authMiddleware, getProfile);
 
 router.put("/change-password", authMiddleware, changePassword);

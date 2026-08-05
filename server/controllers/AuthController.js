@@ -21,7 +21,7 @@ export const login = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const result = await AuthService.getUserProfile(req.user.userId);
+    const result = await AuthService.getUserProfile(req.user.id);
     return successResponse(res, 200, "User profile fetched successfully", result);
   } catch (error) {
     return errorResponse(res, 500, error.message);
@@ -30,7 +30,7 @@ export const getProfile = async (req, res) => {
 
 export const changePassword = async (req, res) => {
   try {
-    const result = await AuthService.changePassword(req.user, req.body);
+    const result = await AuthService.changePassword(req.user.id, req.body);
     return successResponse(res, 200, "Password changed successfully", result);
   } catch (error) {
     return errorResponse(res, 500, error.message);
